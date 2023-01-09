@@ -36,12 +36,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
+const fs_1 = __nccwpck_require__(747);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const buildVersionFile = core.getInput('buildVersionFile');
             core.debug('Hello World');
             core.debug(`Waiting getting file ${buildVersionFile}`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+            const file = (0, fs_1.readFileSync)(`./${buildVersionFile}`, 'utf-8');
+            core.debug(`Contents of file are: ${file}`);
+            const regex = new RegExp(core.getInput('buildVersionRegex'));
+            core.debug(`Testing regex ${regex.test(file)}`);
+            core.debug(`Result is ${regex.exec(file)}`);
         }
         catch (error) {
             if (error instanceof Error)
