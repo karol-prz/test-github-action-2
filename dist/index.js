@@ -91,7 +91,7 @@ function getTaskId() {
         //     pull_number: prNumber,
         // })
         // let branchName = pullRequest.data.head.ref
-        const branchName = (_a = process.env.GITHUB_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
+        const branchName = (_a = process.env.GITHUB_HEAD_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
         core.debug(`Branch name is ${branchName}`);
         if (!branchName) {
             throw Error("Branch name is undefined");

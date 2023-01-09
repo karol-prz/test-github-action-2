@@ -18,7 +18,7 @@ export async function getTaskId(): Promise<string | undefined> {
 
     // let branchName = pullRequest.data.head.ref
 
-    const branchName = process.env.GITHUB_REF?.replace('refs/heads/', '');
+    const branchName = process.env.GITHUB_HEAD_REF?.replace('refs/heads/', '');
     core.debug(`Branch name is ${branchName}`)
     if (!branchName) {
         throw Error("Branch name is undefined")
