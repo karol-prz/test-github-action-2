@@ -32,9 +32,7 @@ const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
 const WEBHOOK_URL = "https://google.com";
 function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(() => {
-            (0, node_fetch_1.default)(WEBHOOK_URL).then(() => { return; });
-        });
+        (0, node_fetch_1.default)(WEBHOOK_URL);
     });
 }
 exports.sendWebHook = sendWebHook;
@@ -81,17 +79,19 @@ const github = __importStar(__nccwpck_require__(5438));
 const core = __importStar(__nccwpck_require__(2186));
 function getTaskId(client) {
     return __awaiter(this, void 0, void 0, function* () {
-        const prNumber = getPrNumber();
-        if (!prNumber) {
-            core.debug(`Unable to find current PR number`);
-            return undefined;
-        }
-        const pullRequest = yield client.rest.pulls.get({
-            owner: github.context.repo.owner,
-            repo: github.context.repo.repo,
-            pull_number: prNumber,
-        });
-        let branchName = pullRequest.data.head.ref;
+        // const prNumber = getPrNumber()
+        // if (!prNumber) {
+        //     core.debug(`Unable to find current PR number`)
+        //     return undefined
+        // }
+        // const pullRequest = await client.rest.pulls.get({
+        //     owner: github.context.repo.owner,
+        //     repo: github.context.repo.repo,
+        //     pull_number: prNumber,
+        // })
+        // let branchName = pullRequest.data.head.ref
+        const branchName = github.context.ref.replace('refs/heads/', '');
+        core.debug(`Branch name is ${branchName}`);
         let taskIdRegex = new RegExp("\/([0-9]+)\/");
         let taskIdMatch = taskIdRegex.exec(branchName);
         if (taskIdMatch == null) {
