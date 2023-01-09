@@ -47,7 +47,13 @@ function run() {
             core.debug(`Contents of file are: ${file}`);
             const regex = new RegExp(core.getInput('buildVersionRegex'));
             core.debug(`Testing regex ${regex.test(file)}`);
-            core.debug(`Result is ${regex.exec(file)}`);
+            const buildVersion = regex.exec(file);
+            if (buildVersion == null) {
+                core.debug("Build version was null ");
+            }
+            else {
+                core.debug(`Result is ${buildVersion[0]}`);
+            }
         }
         catch (error) {
             if (error instanceof Error)
