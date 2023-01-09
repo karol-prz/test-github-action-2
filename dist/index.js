@@ -158,17 +158,15 @@ const core = __importStar(__nccwpck_require__(2186));
 const fs_1 = __nccwpck_require__(5747);
 function getBuildVersionNumber(buildVersionFile, buildVersionRegex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(() => {
-            const file = (0, fs_1.readFileSync)(`./${buildVersionFile}`, 'utf-8');
-            const regex = new RegExp(buildVersionRegex);
-            const buildVersionMatch = regex.exec(file);
-            if (buildVersionMatch == null) {
-                throw Error(`Unable to find version number in "${buildVersionFile}" with regex: ${buildVersionRegex}`);
-            }
-            const buildVersionNumber = buildVersionMatch[1];
-            core.debug(`Found build version number ${buildVersionNumber}`);
-            return buildVersionMatch[1];
-        });
+        const file = (0, fs_1.readFileSync)(`./${buildVersionFile}`, 'utf-8');
+        const regex = new RegExp(buildVersionRegex);
+        const buildVersionMatch = regex.exec(file);
+        if (buildVersionMatch == null) {
+            throw Error(`Unable to find version number in "${buildVersionFile}" with regex: ${buildVersionRegex}`);
+        }
+        const buildVersionNumber = buildVersionMatch[1];
+        core.debug(`Found build version number ${buildVersionNumber}`);
+        return buildVersionMatch[1];
     });
 }
 exports.getBuildVersionNumber = getBuildVersionNumber;
