@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 
 export type ClientType = ReturnType<typeof github.getOctokit>;
 
-export async function getTaskId(client: ClientType): Promise<string | undefined> {
+export async function getTaskId(): Promise<string | undefined> {
     // const prNumber = getPrNumber()
     // if (!prNumber) {
     //     core.debug(`Unable to find current PR number`)
@@ -18,8 +18,11 @@ export async function getTaskId(client: ClientType): Promise<string | undefined>
 
     // let branchName = pullRequest.data.head.ref
 
-    const branchName = github.context.ref.replace('refs/heads/', '');
+    const branchName = process.env.GITHUB_REF?.replace('refs/heads/', '');
     core.debug(`Branch name is ${branchName}`)
+    if (!branchName) {
+        throw Error("Branch name is undefined")
+    }
 
     let taskIdRegex = new RegExp("\/([0-9]+)\/")
     let taskIdMatch = taskIdRegex.exec(branchName)

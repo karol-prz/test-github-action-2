@@ -13,7 +13,7 @@ async function run(): Promise<void> {
     const client: ClientType = github.getOctokit(token)
 
     const buildVersionNumber: string = await getBuildVersionNumber(buildVersionFile, buildVersionRegex)
-    const taskId = await getTaskId(client)
+    const taskId = await getTaskId()
 
     if (taskId) {
       core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`)

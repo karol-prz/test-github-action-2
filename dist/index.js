@@ -77,7 +77,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getTaskId = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 const core = __importStar(__nccwpck_require__(2186));
-function getTaskId(client) {
+function getTaskId() {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         // const prNumber = getPrNumber()
         // if (!prNumber) {
@@ -90,8 +91,11 @@ function getTaskId(client) {
         //     pull_number: prNumber,
         // })
         // let branchName = pullRequest.data.head.ref
-        const branchName = github.context.ref.replace('refs/heads/', '');
+        const branchName = (_a = process.env.GITHUB_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
         core.debug(`Branch name is ${branchName}`);
+        if (!branchName) {
+            throw Error("Branch name is undefined");
+        }
         let taskIdRegex = new RegExp("\/([0-9]+)\/");
         let taskIdMatch = taskIdRegex.exec(branchName);
         if (taskIdMatch == null) {
@@ -219,7 +223,7 @@ function run() {
             const token = core.getInput("repo-token", { required: true });
             const client = github.getOctokit(token);
             const buildVersionNumber = yield (0, VersionNumber_1.getBuildVersionNumber)(buildVersionFile, buildVersionRegex);
-            const taskId = yield (0, TaskId_1.getTaskId)(client);
+            const taskId = yield (0, TaskId_1.getTaskId)();
             if (taskId) {
                 core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`);
                 (0, SendWebHook_1.sendWebHook)(buildVersionNumber, taskId);
