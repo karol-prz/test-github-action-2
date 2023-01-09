@@ -81,33 +81,28 @@ const github = __importStar(__nccwpck_require__(5438));
 const core = __importStar(__nccwpck_require__(2186));
 function getTaskId(client) {
     return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(() => {
-            const prNumber = getPrNumber();
-            if (!prNumber) {
-                core.debug(`Unable to find current PR number`);
-                return undefined;
-            }
-            const taskId = client.rest.pulls.get({
-                owner: github.context.repo.owner,
-                repo: github.context.repo.repo,
-                pull_number: prNumber,
-            }).then(pullRequest => {
-                let branchName = pullRequest.data.head.ref;
-                let taskIdRegex = new RegExp("\/([0-9]+)\/");
-                let taskIdMatch = taskIdRegex.exec(branchName);
-                if (taskIdMatch == null) {
-                    core.debug(`Unable to find taskId in branch name ${branchName}`);
-                    return undefined;
-                }
-                else {
-                    let taskId = taskIdMatch[1];
-                    core.debug(`Found task id ${taskId}`);
-                    return taskId;
-                }
-            });
-            core.debug(`Returning taskId ${taskId}`);
-            return taskId;
+        const prNumber = getPrNumber();
+        if (!prNumber) {
+            core.debug(`Unable to find current PR number`);
+            return undefined;
+        }
+        const pullRequest = yield client.rest.pulls.get({
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
+            pull_number: prNumber,
         });
+        let branchName = pullRequest.data.head.ref;
+        let taskIdRegex = new RegExp("\/([0-9]+)\/");
+        let taskIdMatch = taskIdRegex.exec(branchName);
+        if (taskIdMatch == null) {
+            core.debug(`Unable to find taskId in branch name ${branchName}`);
+            return undefined;
+        }
+        else {
+            let taskId = taskIdMatch[1];
+            core.debug(`Found task id ${taskId}`);
+            return taskId;
+        }
     });
 }
 exports.getTaskId = getTaskId;
