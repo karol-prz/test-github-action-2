@@ -26,7 +26,7 @@ async function run(): Promise<void> {
 
     // section getting PR task id from branch name
 
-    const branchName = executeGitCommand('git rev-parse --abbrev-ref HEAD')
+    const branchName = executeGitCommand('git branch --show-current')
 
     core.debug(`Pull request branch name: ${branchName}`)
     // endsection
