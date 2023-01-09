@@ -18,7 +18,7 @@ async function run(): Promise<void> {
     if (buildVersion == null) {
       core.debug("Build version was null ")
     } else {
-      core.debug(`Result is ${buildVersion[0]}`)
+      core.debug(`Result is ${buildVersion[1]}`)
     }
   
 

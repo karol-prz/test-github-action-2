@@ -52,7 +52,7 @@ function run() {
                 core.debug("Build version was null ");
             }
             else {
-                core.debug(`Result is ${buildVersion[0]}`);
+                core.debug(`Result is ${buildVersion[1]}`);
             }
         }
         catch (error) {
