@@ -1,8 +1,7 @@
 import * as core from '@actions/core'
 import * as github from "@actions/github";
 import { readFileSync } from 'fs'
-
-type ClientType = ReturnType<typeof github.getOctokit>;
+import { execSync } from 'child_process'
 
 
 async function run(): Promise<void> {
@@ -27,16 +26,21 @@ async function run(): Promise<void> {
 
     // section getting PR task id from branch name
 
-    const branchName = github.context.payload.pull_request?.html_url
+    const branchName = executeGitCommand('git rev-parse --abbrev-ref HEAD')
 
-    core.debug(`Pull request properties: ${branchName}`)
-    core.debug(`How about this: ${github.context.ref}`)
+    core.debug(`Pull request branch name: ${branchName}`)
     // endsection
 
 
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
+}
+
+function executeGitCommand(command : string) {
+  return execSync(command)
+    .toString('utf8')
+    .replace(/[\n\r\s]+$/, '');
 }
 
 run()
