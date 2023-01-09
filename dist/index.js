@@ -66,7 +66,7 @@ function run() {
                 pull_number: prNumber,
             });
             const branchName = pullRequest.data.head.ref;
-            const taskIdRegex = new RegExp("/(\d+)/");
+            const taskIdRegex = new RegExp("(\d+)");
             const taskIdMatch = taskIdRegex.exec(branchName);
             if (taskIdMatch == null) {
                 core.debug(`Unable to find task id in branch name ${branchName}`);
