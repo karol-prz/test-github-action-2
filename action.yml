@@ -10,6 +10,9 @@ inputs:
     required: true
     description: "The regex where the match is the build version name. Eg. 3.36.1"
     default: "projectsAppVersionName = \"(.*)\""
+  repo-token:
+    required: true
+    
 runs:
   using: 'node16'
   main: 'dist/index.js'
