@@ -57,6 +57,7 @@ function run() {
             // section getting PR task id from branch name
             const branchName = (_a = github.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.html_url;
             core.debug(`Pull request properties: ${branchName}`);
+            core.debug(`How about this: ${github.context.ref}`);
             // endsection
         }
         catch (error) {

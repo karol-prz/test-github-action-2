@@ -30,6 +30,7 @@ async function run(): Promise<void> {
     const branchName = github.context.payload.pull_request?.html_url
 
     core.debug(`Pull request properties: ${branchName}`)
+    core.debug(`How about this: ${github.context.ref}`)
     // endsection
 
 
