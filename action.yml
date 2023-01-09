@@ -9,7 +9,7 @@ inputs:
   buildVersionRegex:
     required: true
     description: "The regex where the match is the build version name. Eg. 3.36.1"
-    default: 'projectsAppVersionName'
+    default: "projectsAppVersionName = \"(.*)\""
 runs:
   using: 'node16'
   main: 'dist/index.js'
