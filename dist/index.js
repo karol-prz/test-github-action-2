@@ -86,14 +86,12 @@ function getTaskId(client) {
             core.debug(`Unable to find current PR number`);
             return undefined;
         }
-        core.debug(`Found prNumber ${prNumber}`);
         const pullRequest = yield client.rest.pulls.get({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
             pull_number: prNumber,
         });
         let branchName = pullRequest.data.head.ref;
-        core.debug(`branch name ${branchName}`);
         let taskIdRegex = new RegExp("\/([0-9]+)\/");
         let taskIdMatch = taskIdRegex.exec(branchName);
         if (taskIdMatch == null) {
@@ -221,7 +219,6 @@ function run() {
             const token = core.getInput("repo-token", { required: true });
             const client = github.getOctokit(token);
             const buildVersionNumber = yield (0, VersionNumber_1.getBuildVersionNumber)(buildVersionFile, buildVersionRegex);
-            core.debug(`Received version ${buildVersionNumber}, now trying to get task id`);
             const taskId = yield (0, TaskId_1.getTaskId)(client);
             if (taskId) {
                 core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`);
