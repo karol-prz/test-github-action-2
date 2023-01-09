@@ -1,0 +1,104 @@
+ext {
+    localProperties = new Properties()
+    if (rootProject.file("local.properties").exists()) {
+        def keystorePropertiesFile = rootProject.file("local.properties")
+        localProperties.load(new FileInputStream(keystorePropertiesFile))
+    }
+}
+
+buildscript {
+    ext.versions = [
+            // https://github.com/JetBrains/kotlin/blob/master/ChangeLog.md
+            kotlin               : '1.6.21',
+
+            // https://firebase.google.com/support/release-notes/android
+            firebaseCrashlytics  : '2.9.2',
+            firebasePerfMon      : '1.4.1',
+
+            dexcount             : '3.1.0', // https://github.com/KeepSafe/dexcount-gradle-plugin/releases
+            jacoco               : '0.8.8', // https://github.com/jacoco/jacoco/releases
+            ktlint               : '0.45.2', // https://github.com/pinterest/ktlint/releases
+    ]
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    dependencies {
+        // https://developer.android.com/studio/releases/gradle-plugin
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.google.gms:google-services:4.3.14'
+
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:${versions.kotlin}"
+
+        classpath "com.google.firebase:firebase-crashlytics-gradle:${versions.firebaseCrashlytics}"
+        classpath "com.google.firebase:perf-plugin:${versions.firebasePerfMon}"  // Performance Monitoring plugin
+
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:${versions.dexcount}"
+        classpath "org.jacoco:org.jacoco.core:${versions.jacoco}"
+        // classpath "com.github.whataa:pandora-plugin:${versions.pandoraPlugin}" // (uncomment to enable Pandora)
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://software.mobile.pendo.io/artifactory/androidx-release" }
+        maven { // Teamwork internal Maven repository read access
+            url "${artifactory_repo_url}"
+            credentials {
+                username = "${artifactory_read_only_user}"
+                password = "${artifactory_read_only_password}"
+            }
+        }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+
+        maven { url 'https://maven.testfairy.com' }
+
+        // enable the `staging` repository below *only* when testing public Teamwork dependencies before release
+        // maven { url "https://s01.oss.sonatype.org/content/groups/staging" }
+    }
+
+    project.ext {
+        projectsAppVersionCode = 1_03_26_00_0 // {VARIANT(1)_MAJOR(3)_MINOR(2)_PATCH(2)_BUILD(1)}
+        projectsAppVersionName = "3.26.0" // {[MAJOR].Sprint(2[MINOR]).Release(2[PATCH])[.BUILD(1)]}
+        /**
+         * Version pattern explanation:
+         * - Variant: reserved for when the versioning scheme changes
+         * - Major: reserved to significant product changes (e.g. a redesign)
+         * - Minor: incremented once every Sprint (2020 Sprint 1 -> 1.11.0)
+         * - Patch: incremented on every release with behaviour changes (or important bug fix)
+         * - Build: incremented for DB updates (or other technical reasons) or minor bug fixes,
+         *   this number is not specified in the version when it's 0 (e.g. 1.2.0)
+         */
+    }
+
+    apply from: "$rootDir/ktlint.gradle"
+}
+
+configurations.all {
+    // Don't cache changing modules at all.
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+String getLocalProperty(String name) {
+    def properties = new Properties()
+    def file = rootProject.file('local.properties')
+
+    if (file.exists()) {
+        properties.load(file.newDataInputStream())
+        return properties.getProperty(name)
+    }
+
+    return null
+}

@@ -1,11 +1,15 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Karol Przestrzelski'
+description: 'Automatically call a webhook with the task id and current build version after a merge'
+author: 'Teamwork'
 inputs:
-  milliseconds: # change this
+  buildVersionFile:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The file where the build version can be found'
+    default: 'build.gradle'
+  buildVersionRegex:
+    required: true
+    description: "The regex where the match is the build version name. Eg. 3.36.1"
+    default: 'projectsAppVersionName = \"(3.26.0)'
 runs:
   using: 'node16'
   main: 'dist/index.js'
