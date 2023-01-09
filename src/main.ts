@@ -13,6 +13,7 @@ async function run(): Promise<void> {
     const client: ClientType = github.getOctokit(token)
 
     const buildVersionNumber: string = await getBuildVersionNumber(buildVersionFile, buildVersionRegex)
+    core.debug(`Received version ${buildVersionNumber}, now trying to get task id`)
     const taskId = await getTaskId(client)
 
     if (taskId) {

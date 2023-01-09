@@ -9,6 +9,7 @@ export async function getTaskId(client: ClientType): Promise<string | undefined>
         core.debug(`Unable to find current PR number`)
         return undefined
     }
+    core.debug(`Found prNumber ${prNumber}`)
 
     const pullRequest = await client.rest.pulls.get({
         owner: github.context.repo.owner,
@@ -17,6 +18,8 @@ export async function getTaskId(client: ClientType): Promise<string | undefined>
     })
 
     let branchName = pullRequest.data.head.ref
+
+    core.debug(`branch name ${branchName}`)
 
     let taskIdRegex = new RegExp("\/([0-9]+)\/")
     let taskIdMatch = taskIdRegex.exec(branchName)
