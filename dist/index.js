@@ -39,6 +39,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const fs_1 = __nccwpck_require__(5747);
 function run() {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // section getting build version number
@@ -54,7 +55,7 @@ function run() {
             core.debug(`Found build version number: ${buildVersionNumber}`);
             // endsection
             // section getting PR task id from branch name
-            const branchName = github.context.payload.pull_request;
+            const branchName = (_a = github.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.html_url;
             core.debug(`Pull request properties: ${branchName}`);
             // endsection
         }

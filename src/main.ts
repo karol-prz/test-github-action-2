@@ -27,7 +27,7 @@ async function run(): Promise<void> {
 
     // section getting PR task id from branch name
 
-    const branchName = github.context.payload.pull_request
+    const branchName = github.context.payload.pull_request?.html_url
 
     core.debug(`Pull request properties: ${branchName}`)
     // endsection
