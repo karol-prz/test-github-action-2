@@ -1,26 +1,37 @@
 import * as core from '@actions/core'
+import * as github from "@actions/github";
 import { readFileSync } from 'fs'
+
+type ClientType = ReturnType<typeof github.getOctokit>;
+
 
 async function run(): Promise<void> {
   try {
+    // section getting build version number
     const buildVersionFile: string = core.getInput('buildVersionFile')
-    core.debug('Hello World')
-    core.debug(`Waiting getting file ${buildVersionFile}`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const buildVersionRegex: string = core.getInput('buildVersionRegex')
 
     const file = readFileSync(`./${buildVersionFile}`, 'utf-8')
+    const regex = new RegExp(buildVersionRegex)
 
-    core.debug(`Contents of file are: ${file}`)
-
-    const regex = new RegExp(core.getInput('buildVersionRegex'))
-    core.debug(`Testing regex ${regex.test(file)}`)
-
-    const buildVersion = regex.exec(file)
-    if (buildVersion == null) {
-      core.debug("Build version was null ")
-    } else {
-      core.debug(`Result is ${buildVersion[1]}`)
+    const buildVersionMatch = regex.exec(file)
+    if (buildVersionMatch == null) {
+      throw Error(`Unable to find version number in "${buildVersionFile}" with regex: ${buildVersionRegex}`)
     }
+
+    const buildVersionNumber = buildVersionMatch[1]
+    core.debug(`Found build version number: ${buildVersionNumber}`)
   
+    // endsection
+
+
+    // section getting PR task id from branch name
+
+    const branchName = github.context.payload.pull_request
+
+    core.debug(`Pull request properties: ${branchName}`)
+    // endsection
+
 
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
