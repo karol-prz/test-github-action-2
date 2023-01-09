@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import * as github from "@actions/github";
 import { readFileSync } from 'fs'
-import { execSync } from 'child_process'
 
+type ClientType = ReturnType<typeof github.getOctokit>;
 
 async function run(): Promise<void> {
   try {
@@ -25,10 +25,21 @@ async function run(): Promise<void> {
 
 
     // section getting PR task id from branch name
+    const prNumber = getPrNumber()
+    if (!prNumber) {
+      throw Error(`Invalid PR Number`)
+    }
+    const token = core.getInput("repo-token", { required: true });
+    const client: ClientType = github.getOctokit(token)
 
-    const branchName = executeGitCommand('git branch --show-current')
+    const pullRequest = await client.rest.pulls.get({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: prNumber,
+    })
+    const branchName = pullRequest.data.head.ref
 
-    core.debug(`Pull request branch name: ${branchName}`)
+    core.debug(`Pull request properties: ${branchName}`)
     // endsection
 
 
@@ -37,10 +48,13 @@ async function run(): Promise<void> {
   }
 }
 
-function executeGitCommand(command : string) {
-  return execSync(command)
-    .toString('utf8')
-    .replace(/[\n\r\s]+$/, '');
+function getPrNumber(): number | undefined {
+  const pullRequest = github.context.payload.pull_request;
+  if (!pullRequest) {
+      return undefined;
+  }
+  
+  return pullRequest.number;
 }
 
 run()
