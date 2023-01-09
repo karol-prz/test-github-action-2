@@ -66,7 +66,15 @@ function run() {
                 pull_number: prNumber,
             });
             const branchName = pullRequest.data.head.ref;
-            core.debug(`Pull request properties: ${branchName}`);
+            const taskIdRegex = new RegExp("\/(\d+)\/");
+            const taskIdMatch = taskIdRegex.exec(branchName);
+            if (taskIdMatch == null) {
+                core.debug(`Unable to find task id in branch name ${branchName}`);
+            }
+            else {
+                const taskId = taskIdMatch[1];
+                core.debug(`Found task id ${taskId} and build version ${buildVersionNumber}`);
+            }
             // endsection
         }
         catch (error) {
