@@ -87,24 +87,26 @@ function getTaskId(client) {
                 core.debug(`Unable to find current PR number`);
                 return undefined;
             }
-            client.rest.pulls.get({
+            const taskId = client.rest.pulls.get({
                 owner: github.context.repo.owner,
                 repo: github.context.repo.repo,
                 pull_number: prNumber,
             }).then(pullRequest => {
-                const branchName = pullRequest.data.head.ref;
-                const taskIdRegex = new RegExp("\/([0-9]+)\/");
-                const taskIdMatch = taskIdRegex.exec(branchName);
+                let branchName = pullRequest.data.head.ref;
+                let taskIdRegex = new RegExp("\/([0-9]+)\/");
+                let taskIdMatch = taskIdRegex.exec(branchName);
                 if (taskIdMatch == null) {
                     core.debug(`Unable to find taskId in branch name ${branchName}`);
                     return undefined;
                 }
                 else {
-                    const taskId = taskIdMatch[1];
+                    let taskId = taskIdMatch[1];
                     core.debug(`Found task id ${taskId}`);
                     return taskId;
                 }
             });
+            core.debug(`Returning taskId ${taskId}`);
+            return taskId;
         });
     });
 }
