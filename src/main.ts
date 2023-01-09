@@ -39,7 +39,7 @@ async function run(): Promise<void> {
     })
     const branchName = pullRequest.data.head.ref
 
-    const taskIdRegex = new RegExp("\/(\d+)\/")
+    const taskIdRegex = new RegExp("/(\d+)/")
     const taskIdMatch = taskIdRegex.exec(branchName)
     if (taskIdMatch == null) {
       core.debug(`Unable to find task id in branch name ${branchName}`)
