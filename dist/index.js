@@ -26,7 +26,7 @@ function sendWebHook(buildVersionNumber, taskId, fromColumn, toColumn, chatChann
     return __awaiter(this, void 0, void 0, function* () {
         let params = {
             buildVersionNumber: buildVersionNumber,
-            taskId: taskId,
+            taskId: '33918298',
             fromColumn: fromColumn,
             toColumn: toColumn,
             chatChannelId: chatChannelId
