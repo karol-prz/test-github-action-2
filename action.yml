@@ -10,9 +10,19 @@ inputs:
     required: true
     description: "The regex where the match is the build version name. Eg. 3.36.1"
     default: "projectsAppVersionName = \"(.*)\""
-  repo-token:
+  fromColumn:
     required: true
-    
+    description: "The column that the task should be moved from."
+    default: "169406"
+  toColumn:
+    required: true
+    description: "The column that tasks will be moved to"
+    default: "178833"
+  chatChannelId:
+    required: true
+    description: "The chat channel id to use for errors and warnings"
+    default: "71266"
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
