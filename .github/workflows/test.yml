@@ -1,10 +1,7 @@
-name: 'build-test'
+name: 'build'
 on: # rebuild any PRs and main branch changes
   pull_request:
-  push:
-    branches:
-      - main
-      - 'releases/*'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
 jobs:
   # build: # make sure build/ci work properly
@@ -21,7 +18,7 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v2
   #     - uses: ./
-  test: # make sure the action works on a clean machine without building
+  run: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
