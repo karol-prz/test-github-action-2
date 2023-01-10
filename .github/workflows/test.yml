@@ -1,7 +1,5 @@
 name: 'build'
-on: # rebuild any PRs and main branch changes
-  pull_request:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
 jobs:
   # build: # make sure build/ci work properly
@@ -24,5 +22,3 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
