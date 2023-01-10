@@ -24,10 +24,15 @@ const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
 const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0/";
 function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, node_fetch_1.default)(WEBHOOK_URL + new URLSearchParams({
-            'buildVersionNumber': buildVersionNumber,
-            'taskId': taskId,
-        }));
+        let params = {
+            buildVersionNumber: buildVersionNumber,
+            taskId: taskId
+        };
+        (0, node_fetch_1.default)(WEBHOOK_URL, {
+            method: 'POST',
+            body: JSON.stringify(params),
+            headers: { 'Content-Type': 'application/json' }
+        });
     });
 }
 exports.sendWebHook = sendWebHook;
