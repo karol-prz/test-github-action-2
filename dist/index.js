@@ -6,6 +6,25 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -21,12 +40,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sendWebHook = void 0;
 const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
+const core = __importStar(__nccwpck_require__(2186));
 const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0/";
 function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
         let params = {
             buildVersionNumber: buildVersionNumber,
-            taskId: taskId
+            taskId: taskId,
+            fromColumn: core.getInput('fromColumn'),
+            toColumn: core.getInput('toColumn'),
+            chatChannelId: core.getInput('chatChannelId')
         };
         (0, node_fetch_1.default)(WEBHOOK_URL, {
             method: 'POST',
