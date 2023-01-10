@@ -10,18 +10,6 @@ inputs:
     required: true
     description: "The regex where the match is the build version name. Eg. 3.36.1"
     default: "projectsAppVersionName = \"(.*)\""
-  hasPRColumn:
-    required: true
-    description: "The has PR column id"
-    default: "169406"
-  mergedColumn:
-    required: true
-    description: "The merged column id"
-    default: "178833"
-  approvedColumn:
-    required: true
-    description: "The approved column id"
-    default: "178834"
   chatChannelId:
     required: true
     description: "The chat channel id to use for errors and warnings"

@@ -13,14 +13,7 @@ async function run(): Promise<void> {
 
     if (taskId) {
       core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`)
-      sendWebHook(
-        buildVersionNumber, 
-        taskId, 
-        core.getInput('hasPRColumn'), 
-        core.getInput('mergedColumn'), 
-        core.getInput('approvedColumn'), 
-        core.getInput('chatChannelId')
-      )
+      sendWebHook(buildVersionNumber, taskId, core.getInput('chatChannelId'))
     }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
