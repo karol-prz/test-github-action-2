@@ -1,15 +1,14 @@
 import fetch from 'node-fetch';
-import * as core from '@actions/core'
 
 const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0/"
 
-export async function sendWebHook(buildVersionNumber: string, taskId: string): Promise<void> {
+export async function sendWebHook(buildVersionNumber: string, taskId: string, fromColumn: string, toColumn: string, chatChannelId: string): Promise<void> {
     let params = {
         buildVersionNumber: buildVersionNumber,
         taskId: taskId,
-        fromColumn: core.getInput('fromColumn'),
-        toColumn: core.getInput('toColumn'),
-        chatChannelId: core.getInput('chatChannelId')
+        fromColumn: fromColumn,
+        toColumn: toColumn,
+        chatChannelId: chatChannelId
     };
     
     fetch(WEBHOOK_URL, {
