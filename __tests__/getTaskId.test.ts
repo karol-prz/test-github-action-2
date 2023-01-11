@@ -16,7 +16,7 @@ describe('getTaskId', () => {
 
   test('should return the task ID if it is found in the branch name', async () => {
     process.env.GITHUB_HEAD_REF = 'refs/heads/test/12345/bug_fix'
-    await expect(getTaskId()).resolves.toBe('12345 jiji')
+    await expect(getTaskId()).resolves.toBe('12345')
   })
 
   test('should return undefined if the task ID is not found in the branch name', async () => {
