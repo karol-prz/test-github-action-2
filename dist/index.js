@@ -1,103 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3268:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.sendWebHook = void 0;
-const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
-const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0?";
-function sendWebHook(buildVersionNumber, taskId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let params = new URLSearchParams({
-            buildVersionNumber: buildVersionNumber,
-            taskId: taskId,
-        });
-        (0, node_fetch_1.default)(WEBHOOK_URL + params);
-    });
-}
-exports.sendWebHook = sendWebHook;
-
-
-/***/ }),
-
-/***/ 3055:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getTaskId = void 0;
-const core = __importStar(__nccwpck_require__(2186));
-function getTaskId() {
-    var _a;
-    return __awaiter(this, void 0, void 0, function* () {
-        const branchName = (_a = process.env.GITHUB_HEAD_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
-        if (!branchName) {
-            throw Error("Branch name is not found, is this being run in a pull request?");
-        }
-        let taskIdRegex = new RegExp("\/([0-9]+)\/");
-        let taskIdMatch = taskIdRegex.exec(branchName);
-        if (taskIdMatch == null) {
-            core.debug(`Unable to find taskId in branch name ${branchName}`);
-            return undefined;
-        }
-        else {
-            let taskId = taskIdMatch[1];
-            core.debug(`Found task id ${taskId}`);
-            return taskId;
-        }
-    });
-}
-exports.getTaskId = getTaskId;
-
-
-/***/ }),
-
-/***/ 2612:
+/***/ 890:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -152,6 +56,67 @@ exports.getBuildVersionNumber = getBuildVersionNumber;
 
 /***/ }),
 
+/***/ 9227:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getTaskId = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+function getTaskId() {
+    var _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        const branchName = (_a = process.env.GITHUB_HEAD_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
+        if (!branchName) {
+            throw Error('Branch name is not found, is this being run in a pull request?');
+        }
+        const taskIdRegex = new RegExp('/([0-9]+)/');
+        const taskIdMatch = taskIdRegex.exec(branchName);
+        if (taskIdMatch == null) {
+            core.debug(`Unable to find taskId in branch name ${branchName}`);
+            return undefined;
+        }
+        else {
+            const taskId = taskIdMatch[1];
+            core.debug(`Found task id ${taskId}`);
+            return taskId;
+        }
+    });
+}
+exports.getTaskId = getTaskId;
+
+
+/***/ }),
+
 /***/ 3109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -187,19 +152,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
-const VersionNumber_1 = __nccwpck_require__(2612);
-const TaskId_1 = __nccwpck_require__(3055);
-const SendWebHook_1 = __nccwpck_require__(3268);
+const getBuildVersionNumber_1 = __nccwpck_require__(890);
+const getTaskId_1 = __nccwpck_require__(9227);
+const sendWebHook_1 = __nccwpck_require__(8315);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const buildVersionFile = core.getInput('buildVersionFile');
             const buildVersionRegex = core.getInput('buildVersionRegex');
-            const buildVersionNumber = yield (0, VersionNumber_1.getBuildVersionNumber)(buildVersionFile, buildVersionRegex);
-            const taskId = yield (0, TaskId_1.getTaskId)();
+            const buildVersionNumber = yield (0, getBuildVersionNumber_1.getBuildVersionNumber)(buildVersionFile, buildVersionRegex);
+            const taskId = yield (0, getTaskId_1.getTaskId)();
             if (taskId) {
                 core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`);
-                (0, SendWebHook_1.sendWebHook)(buildVersionNumber, taskId);
+                (0, sendWebHook_1.sendWebHook)(buildVersionNumber, taskId);
             }
         }
         catch (error) {
@@ -209,6 +174,41 @@ function run() {
     });
 }
 run();
+
+
+/***/ }),
+
+/***/ 8315:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.sendWebHook = void 0;
+const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
+const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0?';
+function sendWebHook(buildVersionNumber, taskId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const params = new URLSearchParams({
+            buildVersionNumber,
+            taskId
+        });
+        (0, node_fetch_1.default)(`${WEBHOOK_URL}${params}`);
+    });
+}
+exports.sendWebHook = sendWebHook;
 
 
 /***/ }),
