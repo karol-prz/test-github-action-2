@@ -67,7 +67,7 @@ allprojects {
 
     project.ext {
         projectsAppVersionCode = 1_03_26_00_0 // {VARIANT(1)_MAJOR(3)_MINOR(2)_PATCH(2)_BUILD(1)}
-        projectsAppVersionName = "9.50.3" // {[MAJOR].Sprint(2[MINOR]).Release(2[PATCH])[.BUILD(1)]}
+        projectsAppVersionName = "3.27.2" // {[MAJOR].Sprint(2[MINOR]).Release(2[PATCH])[.BUILD(1)]}
         /**
          * Version pattern explanation:
          * - Variant: reserved for when the versioning scheme changes
