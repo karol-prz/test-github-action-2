@@ -22,12 +22,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sendWebHook = void 0;
 const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
 const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0/";
-function sendWebHook(buildVersionNumber, taskId, chatChannelId) {
+function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
         let params = {
             buildVersionNumber: buildVersionNumber,
-            taskId: taskId,
-            chatChannelId: chatChannelId
+            taskId: taskId
         };
         (0, node_fetch_1.default)(WEBHOOK_URL, {
             method: 'POST',
@@ -204,7 +203,7 @@ function run() {
             const taskId = yield (0, TaskId_1.getTaskId)();
             if (taskId) {
                 core.debug(`Sending webhook with buildVersionNumber: ${buildVersionNumber}, and taskId: ${taskId}`);
-                (0, SendWebHook_1.sendWebHook)(buildVersionNumber, taskId, core.getInput('chatChannelId'));
+                (0, SendWebHook_1.sendWebHook)(buildVersionNumber, taskId);
             }
         }
         catch (error) {
