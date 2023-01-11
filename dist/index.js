@@ -21,18 +21,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sendWebHook = void 0;
 const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
-const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0/";
+const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0?";
 function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
-        let params = {
+        let params = new URLSearchParams({
             buildVersionNumber: buildVersionNumber,
-            taskId: taskId
-        };
-        (0, node_fetch_1.default)(WEBHOOK_URL, {
-            method: 'POST',
-            body: JSON.stringify(params),
-            headers: { 'Content-Type': 'application/json' }
+            taskId: taskId,
         });
+        (0, node_fetch_1.default)(WEBHOOK_URL + params);
     });
 }
 exports.sendWebHook = sendWebHook;
