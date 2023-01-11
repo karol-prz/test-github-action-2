@@ -97,9 +97,9 @@ function getTaskId() {
     return __awaiter(this, void 0, void 0, function* () {
         const branchName = (_a = process.env.GITHUB_HEAD_REF) === null || _a === void 0 ? void 0 : _a.replace('refs/heads/', '');
         if (!branchName) {
-            throw Error("Branch name is not found, is this being run in a pull request?");
+            throw Error('Branch name is not found, is this being run in a pull request?');
         }
-        const taskIdRegex = new RegExp("\/([0-9]+)\/");
+        const taskIdRegex = new RegExp('/([0-9]+)/');
         const taskIdMatch = taskIdRegex.exec(branchName);
         if (taskIdMatch == null) {
             core.debug(`Unable to find taskId in branch name ${branchName}`);
@@ -198,14 +198,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sendWebHook = void 0;
 const node_fetch_1 = __importDefault(__nccwpck_require__(6882));
-const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0?";
+const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/11378468/bjrvyc0?';
 function sendWebHook(buildVersionNumber, taskId) {
     return __awaiter(this, void 0, void 0, function* () {
         const params = new URLSearchParams({
             buildVersionNumber,
-            taskId,
+            taskId
         });
-        (0, node_fetch_1.default)("${WEBHOOK_URL}${params}");
+        (0, node_fetch_1.default)(`${WEBHOOK_URL}${params}`);
     });
 }
 exports.sendWebHook = sendWebHook;

@@ -8,6 +8,11 @@
       "project": "./tsconfig.json"
     },
     "rules": {
+      "filenames/match-regex": [
+        "error",
+        "^[a-zA-Z0-9]+$",
+        true
+      ],
       "i18n-text/no-en": "off",
       "eslint-comments/no-use": "off",
       "import/no-namespace": "off",
