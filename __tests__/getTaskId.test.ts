@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { getTaskId } from '../src/TaskId';
+import { getTaskId } from '../src/getTaskId';
 import { expect, test, jest, describe, beforeEach } from '@jest/globals';
 
 describe('getTaskId', () => {

@@ -6,13 +6,13 @@ export async function getTaskId(): Promise<string | undefined> {
         throw Error("Branch name is not found, is this being run in a pull request?")
     }
 
-    let taskIdRegex = new RegExp("\/([0-9]+)\/")
-    let taskIdMatch = taskIdRegex.exec(branchName)
+    const taskIdRegex = new RegExp("\/([0-9]+)\/")
+    const taskIdMatch = taskIdRegex.exec(branchName)
     if (taskIdMatch == null) {
         core.debug(`Unable to find taskId in branch name ${branchName}`)
         return undefined
     } else {
-        let taskId = taskIdMatch[1]
+        const taskId = taskIdMatch[1]
         core.debug(`Found task id ${taskId}`)
         return taskId
     }

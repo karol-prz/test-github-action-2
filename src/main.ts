@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
-import { getBuildVersionNumber } from './VersionNumber'
-import { getTaskId } from './TaskId'
-import { sendWebHook } from './SendWebHook'
+import { getBuildVersionNumber } from './getBuildVersionNumber'
+import { getTaskId } from './getTaskId'
+import { sendWebHook } from './sendWebHook'
 
 async function run(): Promise<void> {
   try {
