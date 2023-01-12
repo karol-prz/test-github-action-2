@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import {readFileSync} from 'fs'
+import { readFileSync } from 'fs'
 
 export async function getBuildVersionNumber(
   buildVersionFile: string,
