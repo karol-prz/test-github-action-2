@@ -5,7 +5,7 @@ export async function getBuildVersionNumber(
   buildVersionFile: string,
   buildVersionRegex: string
 ): Promise<string> {
-  const file = readFileSync(`./${buildVersionFile}`, 'utf-8')
+  const file = readFileSync(`${buildVersionFile}`, 'utf-8')
   const regex = new RegExp(buildVersionRegex)
 
   const buildVersionMatch = regex.exec(file)
@@ -18,5 +18,5 @@ export async function getBuildVersionNumber(
 
   const buildVersionNumber = buildVersionMatch[1]
   core.debug(`Found build version number ${buildVersionNumber}`)
-  return buildVersionMatch[1]
+  return buildVersionNumber
 }
