@@ -5,11 +5,9 @@ inputs:
   buildVersionFile:
     required: true
     description: 'The file where the build version can be found'
-    default: 'build.gradle'
   buildVersionRegex:
     required: true
     description: "The regex where the match is the build version name. Eg. 3.36.1"
-    default: "projectsAppVersionName = \"(.*)\""
 
 runs:
   using: 'node16'

@@ -1,6 +1,6 @@
-import {expect, test, jest} from '@jest/globals'
-import {readFileSync} from 'fs'
-import {getBuildVersionNumber} from '../src/getBuildVersionNumber'
+import { expect, test, jest } from '@jest/globals'
+import { readFileSync } from 'fs'
+import { getBuildVersionNumber } from '../src/getBuildVersionNumber'
 
 test('getBuildVersionNumber throws error when regex does not match', async () => {
   const mockReadFileSync = jest.fn().mockReturnValue('file contents')
