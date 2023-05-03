@@ -2,12 +2,6 @@ name: 'Karol Przestrzelski'
 description: 'Automatically call a webhook with the task id and current build version after a merge'
 author: 'Teamwork'
 inputs:
-  buildVersionFile:
-    required: true
-    description: 'The file where the build version can be found'
-  buildVersionRegex:
-    required: true
-    description: "The regex where the match is the build version name. Eg. 3.36.1"
 
 runs:
   using: 'node16'
